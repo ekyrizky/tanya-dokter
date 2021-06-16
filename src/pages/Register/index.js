@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
-import {showMessage} from 'react-native-flash-message';
+import {useDispatch} from 'react-redux';
 import {Button, Gap, Header, Input, Loading} from '../../components';
 import {Fire} from '../../config';
-import {colors, storeData, useForm} from '../../utils';
+import {colors, showError, storeData, useForm} from '../../utils';
 
 const Register = ({navigation}) => {
   const [form, setForm] = useForm({
@@ -13,14 +13,14 @@ const Register = ({navigation}) => {
     password: '',
   });
 
-  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   const onContinue = () => {
-    setLoading(true);
+    dispatch({type: 'SET_LOADING', value: true});
     Fire.auth()
       .createUserWithEmailAndPassword(form.email, form.password)
       .then(success => {
-        setLoading(false);
+        dispatch({type: 'SET_LOADING', value: false});
         setForm('reset');
         const data = {
           fullname: form.fullname,
@@ -37,13 +37,8 @@ const Register = ({navigation}) => {
       })
       .catch(error => {
         const errorMessage = error.message;
-        setLoading(false);
-        showMessage({
-          message: errorMessage,
-          type: 'default',
-          backgroundColor: colors.error,
-          color: colors.white,
-        });
+        dispatch({type: 'SET_LOADING', value: false});
+        showError(errorMessage);
       });
   };
   return (
@@ -81,7 +76,6 @@ const Register = ({navigation}) => {
           </ScrollView>
         </View>
       </View>
-      {loading && <Loading />}
     </>
   );
 };

@@ -1,11 +1,12 @@
 import React from 'react';
 import {useEffect} from 'react';
 import {useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {ILNullPhoto} from '../../assets';
 import {Gap} from '../../components/atoms';
 import {Header, List, Profile} from '../../components/molecules';
-import {colors, getData} from '../../utils';
+import {colors, getData, showError} from '../../utils';
+import {Fire} from '../../config';
 
 const UserProfile = ({navigation}) => {
   const [profile, setProfile] = useState({
@@ -21,6 +22,16 @@ const UserProfile = ({navigation}) => {
       setProfile(res);
     });
   }, []);
+  const signOut = () => {
+    Fire.auth()
+      .signOut()
+      .then(() => {
+        navigation.replace('GetStarted');
+      })
+      .catch(err => {
+        showError(err.message);
+      });
+  };
 
   return (
     <View style={styles.page}>
@@ -54,10 +65,11 @@ const UserProfile = ({navigation}) => {
         icon="rate"
       />
       <List
-        name="Help Center"
+        name="Sign Out"
         desc="Last Update Yesterday"
         type="next"
         icon="help"
+        onPress={signOut}
       />
     </View>
   );

@@ -2,10 +2,9 @@ import React, {useEffect, useState} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {Button, Gap, Input} from '../../components/atoms';
 import {Header, Profile} from '../../components/molecules';
-import {colors, getData, storeData} from '../../utils';
+import {colors, getData, showError, storeData} from '../../utils';
 import {Fire} from '../../config';
 import * as ImagePicker from 'react-native-image-picker';
-import {showMessage} from 'react-native-flash-message';
 import {ILNullPhoto} from '../../assets';
 
 const UpdateProfile = ({navigation}) => {
@@ -29,12 +28,7 @@ const UpdateProfile = ({navigation}) => {
   const update = () => {
     if (password.length > 0) {
       if (password.length < 6) {
-        showMessage({
-          message: 'Password kurang dari 6 karakter',
-          type: 'default',
-          backgroundColor: colors.error,
-          color: colors.white,
-        });
+        showError('Password kurang dari 6 karakter');
       } else {
         updatePassword();
         updateProfileData();
@@ -50,12 +44,7 @@ const UpdateProfile = ({navigation}) => {
     Fire.auth().onAuthStateChanged(user => {
       if (user) {
         user.updatePassword(password).catch(err => {
-          showMessage({
-            message: err.message,
-            type: 'default',
-            backgroundColor: colors.error,
-            color: colors.white,
-          });
+          showError(err.message);
         });
       }
     });
@@ -71,12 +60,7 @@ const UpdateProfile = ({navigation}) => {
         storeData('user', data);
       })
       .catch(err => {
-        showMessage({
-          message: err.message,
-          type: 'default',
-          backgroundColor: colors.error,
-          color: colors.white,
-        });
+        showError(err.message);
       });
   };
 
@@ -92,12 +76,7 @@ const UpdateProfile = ({navigation}) => {
       {quality: 0.5, maxWidth: 200, maxHeight: 200, includeBase64: true},
       response => {
         if (response.didCancel || response.error) {
-          showMessage({
-            message: 'oops, sepertinya anda tidak memilih foto nya?',
-            type: 'default',
-            backgroundColor: colors.error,
-            color: colors.white,
-          });
+          showError('oops, sepertinya anda tidak memilih foto nya?');
         } else {
           const source = {uri: response.assets[0].uri};
           setPhotoForDB(

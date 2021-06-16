@@ -6,15 +6,16 @@ import {colors, fonts} from '../../utils';
 
 const Splash = ({navigation}) => {
   useEffect(() => {
-    setTimeout(() => {
-      Fire.auth().onAuthStateChanged(user => {
+    const unsubscribe = Fire.auth().onAuthStateChanged(user => {
+      setTimeout(() => {
         if (user) {
           navigation.replace('MainApp');
         } else {
           navigation.replace('GetStarted');
         }
-      });
-    }, 3000);
+      }, 3000);
+    });
+    return () => unsubscribe();
   }, [navigation]);
   return (
     <View style={styles.page}>
