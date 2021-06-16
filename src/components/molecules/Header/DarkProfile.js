@@ -1,6 +1,6 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
-import {DummyDoctor11, DummyDoctor9} from '../../../assets';
+import {DummyDoctor9} from '../../../assets';
 import {colors, fonts} from '../../../utils';
 import {Button} from '../../atoms';
 

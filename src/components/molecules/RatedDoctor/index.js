@@ -1,6 +1,6 @@
 import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {DummyDoctor1, IconStar} from '../../../assets';
+import {IconStar} from '../../../assets';
 import {colors, fonts} from '../../../utils';
 
 const RatedDoctor = ({name, desc, avatar, onPress}) => {

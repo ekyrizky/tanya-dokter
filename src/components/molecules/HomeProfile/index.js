@@ -2,7 +2,7 @@ import React from 'react';
 import {useState} from 'react';
 import {useEffect} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {DummyUser, ILNullPhoto} from '../../../assets';
+import {ILNullPhoto} from '../../../assets';
 import {colors, fonts, getData} from '../../../utils';
 
 const HomeProfile = ({onPress}) => {

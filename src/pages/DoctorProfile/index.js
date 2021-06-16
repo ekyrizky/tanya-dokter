@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {Button, Gap} from '../../components/atoms';
 import {Header, Profile, ProfileItem} from '../../components/molecules';
 import {colors} from '../../utils';

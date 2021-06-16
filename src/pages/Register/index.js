@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {useDispatch} from 'react-redux';
-import {Button, Gap, Header, Input, Loading} from '../../components';
+import {Button, Gap, Header, Input} from '../../components';
 import {Fire} from '../../config';
 import {colors, showError, storeData, useForm} from '../../utils';
 
